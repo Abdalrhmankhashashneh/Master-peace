@@ -57,7 +57,7 @@
                 <div class="navbar-nav mx-auto">
                     <a href="{{route('raqib.index')}}" class="nav-item nav-link active">Home</a>
                     <a href="{{route('about')}}" class="nav-item nav-link">About Us</a>
-                    <a href="classes.html" class="nav-item nav-link">Classes</a>
+                    <a href="{{route('school')}}" class="nav-item nav-link">Schools</a>
                 </div>
                 <a href="" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Join Us<i class="fa fa-arrow-right ms-3"></i></a>
             </div>

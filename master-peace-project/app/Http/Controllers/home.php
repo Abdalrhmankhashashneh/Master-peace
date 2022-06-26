@@ -15,6 +15,25 @@ class home extends Controller
     {
         return view('index');
     }
+       /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function about()
+    {
+
+        return view('about');
+    }
+       /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function school()
+    {
+        return view('classes');
+    }
 
     /**
      * Show the form for creating a new resource.
