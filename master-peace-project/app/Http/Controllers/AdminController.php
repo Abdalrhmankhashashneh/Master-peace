@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\admin;
 use Illuminate\Http\Request;
+use App\Models\school;
+use App\Models\teacher;
+use App\Models\student;
+use App\Models\manager;
+use App\Models\classroom;
+
 
 class AdminController extends Controller
 {
@@ -17,6 +23,8 @@ class AdminController extends Controller
         return view('Admin.index');
     }
 
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,6 +33,82 @@ class AdminController extends Controller
     public function create()
     {
         return view('Admin.school');
+    }
+
+    public function school()
+    {
+        $schools = school::all();
+        return view('Admin.school.school' , compact('schools'));
+    }
+
+
+    public function school_create()
+    {
+        return view('Admin.school.school_add');
+    }
+
+    public function school_store(Request $request)
+    {
+        $school = new school;
+        $school->name = $request->school_name;
+        $school->status = $request->status;
+        $school->save();
+        return redirect()->route('admin.school');
+    }
+
+    public function school_edit($id)
+    {
+        $school = school::find($id);
+        return view('Admin.school.school_edit' , compact('school'));
+    }
+
+    public function school_update(Request $request, $id)
+    {
+        $school = school::find($id);
+        $school->name = $request->school_name;
+        $school->status = $request->status;
+        $school->save();
+        return redirect()->route('admin.school');
+    }
+
+    public function school_delete($id)
+    {
+        $school = school::find($id);
+        $school->delete();
+        return redirect()->route('admin.school');
+    }
+
+    public function school_show($id)
+    {
+        $school = school::find($id);
+        $teachers = teacher::where('school_id', $id)->count();
+        $students = student::where('school_id', $id)->count();
+        $managers = manager::where('school_id', $id)->count();
+        $classrooms = classroom::where('school_id', $id)->count();
+
+        return view('Admin.school.school_show' , compact('school','teachers','students','managers','classrooms'));
+    }
+
+    public function school_search(Request $request)
+    {
+        $schools = school::where('name', 'like', '%'.$request->search.'%')->get();
+        return view('Admin.school.school' , compact('schools'));
+    }
+
+    public function school_teachers($id){
+
+        $teachers = teacher::where('school_id', $id)->get();
+        $school = school::find($id);
+        return view('Admin.school.school_teachers' , compact('teachers' , 'school'));
+    }
+
+
+
+    public function school_search_teachers(Request $request , $id)
+    {
+        $teachers = teacher::where('school_id', $id)->where('name', 'like', '%'.$request->search.'%')->get();
+        $school = school::find($id);
+        return view('Admin.school.school_teachers' , compact('teachers' , 'school'));
     }
 
     /**
@@ -69,7 +153,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, admin $admin)
     {
-        //
+
     }
 
     /**
@@ -80,6 +164,6 @@ class AdminController extends Controller
      */
     public function destroy(admin $admin)
     {
-        //
+
     }
 }

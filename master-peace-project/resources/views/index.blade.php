@@ -45,7 +45,7 @@
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 750px;">
-                    <h1 class="mb-3">Secrvices</h1>
+                    <h1 class="mb-3">Services</h1>
                     We provide all the services that the school needs to develop the relationship between it and parents and build an environment suitable for the growth and development of children.</div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">

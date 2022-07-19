@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\school;
 class home extends Controller
 {
     /**
@@ -13,7 +13,10 @@ class home extends Controller
      */
     public function index()
     {
-        return view('index');
+        $data = School::all();
+        dd($data);
+
+
     }
        /**
      * Display a listing of the resource.
@@ -25,6 +28,24 @@ class home extends Controller
 
         return view('about');
     }
+    /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+ public function login()
+ {
+     return view('login');
+ }
+    /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+ public function contact()
+ {
+     return view('contact');
+ }
        /**
      * Display a listing of the resource.
      *

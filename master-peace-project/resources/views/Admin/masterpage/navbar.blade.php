@@ -309,7 +309,7 @@
                             </a>
                         </li>
                         <li class="active">
-                            <a href="{{route('admin.create')}}">
+                            <a href="{{route('admin.school')}}">
                                 <i class="material-icons">school</i>
                                 <span>Schools</span>
                             </a>
@@ -317,3 +317,5 @@
 
                     </ul>
                 </div>
+<!-- #END# Right Sidebar -->
+</section>
