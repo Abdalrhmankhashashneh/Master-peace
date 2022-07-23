@@ -4,7 +4,14 @@
 @endsection
 @section('con')
 <div class="container-fluid">
+    <nav>
+        <ul class="pager ">
+            <li class="previous">
+                <a href="{{route('admin.index')}}" class="waves-effect"><span aria-hidden="true">←</span> Back </a>
+            </li>
 
+        </ul>
+    </nav>
     <div class="block-header">
         <h1 class="align-center"> Schools </h1>
     </div>

@@ -18,7 +18,7 @@ class TeacherController extends Controller
     public function index()
     {
         $teachers = teacher::all();
-        return view('Admin.teacher.teacher' , compact('teachers'));
+        return view('Admin.teacher.teachers' , compact('teachers'));
     }
 
     /**
@@ -28,9 +28,16 @@ class TeacherController extends Controller
      */
     public function create(Request $request)
     {
-
+        if($request->id){
         $school = school::find($request->id);
-        return view('Admin.teacher.teacher_add' ,  compact('school'));
+        $school_teacher = "1";
+        return view('Admin.teacher.teacher_add' ,  compact('school','school_teacher'));
+    }
+    else{
+        $schools = school::all();
+        $school_teacher = "0";
+        return view('Admin.teacher.teacher_add' ,  compact('schools','school_teacher'));
+        }
 
     }
 
@@ -83,7 +90,8 @@ class TeacherController extends Controller
      */
     public function edit(teacher $teacher)
     {
-        //
+        $teacher = teacher::find($teacher->id);
+        return view('Admin.teacher.teacher_edit' ,  compact('teacher'));
     }
 
     /**
@@ -95,7 +103,26 @@ class TeacherController extends Controller
      */
     public function update(UpdateteacherRequest $request, teacher $teacher)
     {
-        //
+        $validate = $request->validated(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:teachers',
+                'password' => 'required|string|min:6',
+                'school_id' => 'required',
+                'status' => 'required',
+            ]
+        );
+
+        $teacher = teacher::find($teacher->id);
+        $teacher->name = $request->name;
+        $teacher->email = $request->email;
+        $teacher->password = $request->password;
+        $teacher->status = $request->status;
+        $teacher->school_id = $request->school_id;
+        $teacher->save();
+
+        return redirect()->route('admin.school_show_teachers' ,  $request->school_id);
+
     }
 
     /**
@@ -106,6 +133,9 @@ class TeacherController extends Controller
      */
     public function destroy(teacher $teacher)
     {
-        //
+        $teacher = teacher::find($teacher->id);
+        $school_id = $teacher->school_id;
+        $teacher->delete();
+        return redirect()->route('admin.school_show_teachers' ,  $school_id);
     }
 }

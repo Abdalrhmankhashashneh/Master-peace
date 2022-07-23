@@ -71,7 +71,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">dashbordBSB - MATERIAL DESIGN</a>
+                <a class="navbar-brand" href="{{route('admin.index')}}"> Raqib dashbord </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -277,11 +277,11 @@
                 <!-- User Info -->
                 <div class="user-info">
                     <div class="image">
-                        <img src="images/user.png" width="48" height="48" alt="User" />
+                        <img src="{{asset('dashbord/images/user.png')}}" width="48" height="48" alt="User" />
                     </div>
                     <div class="info-container">
-                        <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                        <div class="email">john.doe@example.com</div>
+                        <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@yield('name')</div>
+                        <div class="email">@yield('email')</div>
                         <div class="btn-group user-helper-dropdown">
                             <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="true">keyboard_arrow_down</i>
@@ -312,6 +312,24 @@
                             <a href="{{route('admin.school')}}">
                                 <i class="material-icons">school</i>
                                 <span>Schools</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="{{route('classrooms.index')}}">
+                                <i class="material-icons">content_paste</i>
+                                <span>classrooms</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="{{route('teachers.index')}}">
+                                <i class="material-icons">person</i>
+                                <span>Teachers </span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="{{route('students.index')}}">
+                                <i class="material-icons">people</i>
+                                <span>Students </span>
                             </a>
                         </li>
 

@@ -15,7 +15,7 @@
 
                 </div>
                 <div class="body table-responsive">
-                    <form action="{{route('admin.school_show_teachers_search', $school->id)}}" method="post">
+                    <form action="{{route('admin.school_show_students_search', $school->id)}}" method="post">
                         @csrf
                     <div class="col-sm-6" >
 
@@ -40,21 +40,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                       @foreach ($teachers as$key => $teacher)
+                       @foreach ($students as$key => $student)
 
                        <tr>
                            <th scope="row">{{$key + 1}}</th>
-                           <td>{{$teacher->name}}</td>
-                           <td>{{$teacher->email}}</td>
-                           <td>{{$teacher->status}}</td>
-                           <td><a class="btn btn-block btn-lg btn-warning waves-effect" href="{{route('teachers.edit' , $teacher)}}">edit</a></td>
-                           <td> <form method="POST" action="{{route('teachers.destroy' , $teacher)}}"> @csrf @method('DELETE') <input type="submit" class="btn btn-block btn-lg btn-danger waves-effect" value="delete"> <form></td>
+                           <td>{{$student->name}}</td>
+                           <td>{{$student->email}}</td>
+                           <td>{{$student->status}}</td>
+                           <td><a class="btn btn-block btn-lg btn-warning waves-effect" href="{{route('students.edit' , $student)}}">edit</a></td>
+                           <td> <form method="POST" action="{{route('students.destroy' , $student)}}"> @csrf @method('DELETE') <input type="submit" class="btn btn-block btn-lg btn-danger waves-effect" value="delete"> <form></td>
+                            <td><a class="btn btn-block btn-lg btn-info waves-effect" href="{{route('students.show' , $student)}}">show</a></td>
 
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <a class="btn btn-block btn-lg btn-success waves-effect" href="{{route('teachers.create' ,['id' => $school->id] )}}">Add Teacher</a>
+                <a class="btn btn-block btn-lg btn-success waves-effect" href="{{route('students.create' ,['id' => $school->id] )}}">Add Students </a>
                 </div>
             </div>
         </div>

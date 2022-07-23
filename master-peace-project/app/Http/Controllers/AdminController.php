@@ -25,6 +25,7 @@ class AdminController extends Controller
 
 
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -106,10 +107,57 @@ class AdminController extends Controller
 
     public function school_search_teachers(Request $request , $id)
     {
+
+        if($request->public_teacher == "1"){
+            $teachers = teacher::where('name', 'like', '%'.$request->search.'%')->get();
+             return view('Admin.teacher.teachers' , compact('teachers'));
+        }
         $teachers = teacher::where('school_id', $id)->where('name', 'like', '%'.$request->search.'%')->get();
         $school = school::find($id);
         return view('Admin.school.school_teachers' , compact('teachers' , 'school'));
     }
+
+    public function school_students($id){
+        $students = student::where('school_id', $id)->get();
+        $school = school::find($id);
+        return view('Admin.school.school_student' , compact('students' , 'school'));
+    }
+
+    public function school_search_students(Request $request , $id)
+    {
+        if($request->public_teacher == "1"){
+            $students = student::where('name', 'like', '%'.$request->search.'%')->get();
+            return view('Admin.student.students' , compact('students'));
+        }
+        $students = student::where('school_id', $id)->where('name', 'like', '%'.$request->search.'%')->get();
+        $school = school::find($id);
+        return view('Admin.school.school_student' , compact('students' , 'school'));
+    }
+
+
+    public function school_classrooms($id){
+        $classrooms = classroom::where('school_id', $id)->get();
+        $school = school::find($id);
+        return view('Admin.school.school_classrooms' , compact('classrooms' , 'school'));
+    }
+
+    public function school_search_classrooms(Request $request , $id ){
+        if($request->public == "1"){
+            $classrooms = classroom::where('name', 'like', '%'.$request->search.'%')->get();
+            return view('Admin.classrooms.classrooms' , compact('classrooms'));
+        }
+        $classrooms = classroom::where('school_id', $id)->where('name', 'like', '%'.$request->search.'%')->get();
+        $school = school::find($id);
+        return view('Admin.school.school_classrooms' , compact('classrooms' , 'school'));
+    }
+
+
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.

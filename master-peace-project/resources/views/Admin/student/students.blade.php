@@ -1,9 +1,17 @@
 @extends('Admin.masterpage.master')
 @section('title')
-    Admin||schools
+    Admin||Students
 @endsection
 @section('con')
 <div class="container-fluid">
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="{{route('admin.index')}}" class="waves-effect"><span aria-hidden="true">←</span> Back </a>
+            </li>
+
+        </ul>
+    </nav>
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
@@ -15,8 +23,9 @@
 
                 </div>
                 <div class="body table-responsive">
-                    <form action="{{route('admin.school_show_teachers_search', $school->id)}}" method="post">
+                    <form action="{{route('admin.school_show_students_search', 't' )}}" method="post">
                         @csrf
+                        <input type="hidden" name="public_teacher" value="1">
                     <div class="col-sm-6" >
 
                             <div class="form-group">
@@ -40,21 +49,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                       @foreach ($teachers as$key => $teacher)
+                       @foreach ($students as$key => $student)
 
                        <tr>
                            <th scope="row">{{$key + 1}}</th>
-                           <td>{{$teacher->name}}</td>
-                           <td>{{$teacher->email}}</td>
-                           <td>{{$teacher->status}}</td>
-                           <td><a class="btn btn-block btn-lg btn-warning waves-effect" href="{{route('teachers.edit' , $teacher)}}">edit</a></td>
-                           <td> <form method="POST" action="{{route('teachers.destroy' , $teacher)}}"> @csrf @method('DELETE') <input type="submit" class="btn btn-block btn-lg btn-danger waves-effect" value="delete"> <form></td>
+                           <td>{{$student->name}}</td>
+                           <td>{{$student->email}}</td>
+                           <td>{{$student->status}}</td>
+                           <td> <form method="POST" action="{{route('students.destroy' , $student)}}"> @csrf @method('DELETE') <input type="submit" class="btn btn-block btn-lg btn-danger waves-effect" value="delete"> <form></td>
+                           <td><a class="btn btn-block btn-lg btn-warning waves-effect" href="{{route('students.edit' , $student)}}">edit</a></td>
+                           <td><a class="btn btn-block btn-lg btn-info waves-effect" href="{{route('students.show' , $student)}}">show</a></td>
 
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <a class="btn btn-block btn-lg btn-success waves-effect" href="{{route('teachers.create' ,['id' => $school->id] )}}">Add Teacher</a>
+                <a class="btn btn-block btn-lg btn-success waves-effect" href="{{route('students.create'  )}}">Add Student</a>
                 </div>
             </div>
         </div>

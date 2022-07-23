@@ -14,7 +14,7 @@ class home extends Controller
     public function index()
     {
         $data = School::all();
-        dd($data);
+        return view('index', compact('data'));
 
 
     }

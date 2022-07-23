@@ -19,6 +19,7 @@
         </div>
     </div>
     </a>
+    <a href="{{route('admin.school_show_students' , $school->id)}}">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-green hover-expand-effect">
             <div class="icon">
@@ -30,6 +31,8 @@
             </div>
         </div>
     </div>
+    </a>
+    <a href="{{route('admin.school_show_classrooms' , $school->id)}}">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-light-green hover-expand-effect">
             <div class="icon">
@@ -41,6 +44,7 @@
             </div>
         </div>
     </div>
+    </a>
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-lime hover-expand-effect">
             <div class="icon">

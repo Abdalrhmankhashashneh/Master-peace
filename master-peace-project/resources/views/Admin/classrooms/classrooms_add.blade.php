@@ -9,7 +9,7 @@
             <div class="card">
 
                 <div class="body">
-                    <form id="form_validation" method="POST" novalidate="novalidate" action="{{route('teachers.store')}}" >
+                    <form id="form_validation" method="POST" novalidate="novalidate" action="{{route('classrooms.store')}}" >
                         @csrf
                         <div class="form-group form-float">
                             <div class="form-line error">
@@ -21,18 +21,13 @@
                         </div>
 
                         <div class="form-group form-float">
-                            <div class="form-line error">
-                                <input type="email" class="form-control" name="email" required="" aria-required="true" aria-invalid="true">
-                                <label class="form-label">Email</label>
+                            <div class="form-line">
+                                <input type="number" class="form-control" name="limit" required="" aria-required="true">
+                                <label class="form-label">Limits</label>
                             </div>
-                            <label id="email-error" class="error" for="email" style="display: block;">This field is required.</label>
+                            <div class="help-info">Numbers only</div>
                         </div>
-                        <div class="form-group form-float">
-                            <div class="form-line focused">
-                                <input type="password" class="form-control" name="password" required="" aria-required="true" aria-invalid="false">
-                                <label class="form-label">Password</label>
-                            </div>
-                        </div>
+
 
 
 
@@ -44,7 +39,7 @@
                         </div>
 
                         <input type="hidden" name="status" value="1" >
-                        @if($school_teacher == "1")
+                        @if($school_classroom == "1")
                         <input type="hidden" name="school_id" value="{{$school->id }}" >
                         @else
                         <div class="form-group form-float">
@@ -57,7 +52,8 @@
                                 <label class="form-label">School</label>
                             </div>
                         @endif
-                        <button class="btn btn-primary waves-effect" type="submit">Add Teacher</button>
+
+                        <button class="btn btn-primary waves-effect" type="submit">Add classroom</button>
                     </form>
                 </div>
             </div>
