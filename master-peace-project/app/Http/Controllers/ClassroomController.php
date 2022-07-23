@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\classroom;
 use App\Models\lessones;
+use App\Models\manager;
 use App\Models\school;
+use Session;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreclassroomRequest;
 use App\Http\Requests\UpdateclassroomRequest;
@@ -18,6 +20,12 @@ class ClassroomController extends Controller
      */
     public function index()
     {
+        if(Session::has('manager')){
+            $manager = manager::find(Session::get('manager'));
+            $school = school::find($manager->school_id);
+            $classrooms = classroom::where('school_id',$school->id)->get();
+            return view('Admin.school.school_classrooms',compact('classrooms' , 'school' , 'manager'));
+        }
         $classrooms = classroom::all();
         return view('Admin.classrooms.classrooms', compact('classrooms'));
     }

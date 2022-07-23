@@ -55,6 +55,7 @@
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
+    @if(Session::has('admin'))
     <div class="search-bar">
         <div class="search-icon">
             <i class="material-icons">search</i>
@@ -270,6 +271,7 @@
             </div>
         </div>
     </nav>
+    @endif
         <!-- #Top Bar -->
         <section>
             <!-- Left Sidebar -->
@@ -288,11 +290,20 @@
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
                                 <li role="seperator" class="divider"></li>
-                                <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                                <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                                <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
                                 <li role="seperator" class="divider"></li>
+                                @if(Session::has('manager'))
+                                <li><i class="material-icons">input</i><form action="{{route('logout')}}" method="POST">
+                                    @csrf
+                                    <input type="submit" value="Sign Out">
+                                </form></li>
+                                @elseif(Session::has('admin'))
+                                <li><i class="material-icons">input</i><form action="{{route('logout')}}" method="POST">
+                                    @csrf
+                                    <input type="submit" value="Sign Out">
+                                </form></li>
+                                @elseif(Session::has('user'))
                                 <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -302,6 +313,7 @@
                 <div class="menu">
                     <ul class="list">
                         <li class="header">MAIN NAVIGATION</li>
+                        @if(Session::has('admin'))
                         <li class="active">
                             <a href="{{route('admin.index')}}">
                                 <i class="material-icons">home</i>
@@ -333,6 +345,8 @@
                             </a>
                         </li>
 
+                        @endif
+@yield('links')
                     </ul>
                 </div>
 <!-- #END# Right Sidebar -->

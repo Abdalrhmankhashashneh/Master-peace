@@ -1,7 +1,34 @@
 @extends('Admin.masterpage.master')
 @section('title')
-    Admin||schools
+@if(Session::has('manager'))
+school||Manger||teachers
+@else
+Admin||schools||teachers
+@endif
 @endsection
+@if(Session::has('manager'))
+@section('links')
+<li class="active">
+    <a href="{{route('classrooms.index')}}">
+        <i class="material-icons">content_paste</i>
+        <span>classrooms</span>
+    </a>
+</li>
+<li class="active">
+    <a href="{{route('teachers.index')}}">
+        <i class="material-icons">person</i>
+        <span>Teachers </span>
+    </a>
+</li>
+<li class="active">
+    <a href="{{route('students.index')}}">
+        <i class="material-icons">people</i>
+        <span>Students </span>
+    </a>
+</li>
+@endsection
+@endif
+
 @section('con')
 <div class="container-fluid">
     <div class="row clearfix">

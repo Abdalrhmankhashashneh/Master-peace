@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\student;
+use App\Models\manager;
 use App\Models\school;
 use App\Models\lessones;
 use App\Models\teacher;
 use App\Models\assigment;
+use Session ;
 use App\Http\Requests\StorestudentRequest;
 use App\Http\Requests\UpdatestudentRequest;
 use Illuminate\Http\Request;
@@ -20,6 +22,12 @@ class StudentController extends Controller
      */
     public function index()
     {
+        if(Session::has('manager')){
+            $manager = manager::find(Session::get('manager'));
+            $school = school::find($manager->school_id);
+            $students = student::where('school_id',$school->id)->get();
+            return view('Admin.school.school_student',compact('students' , 'school' , 'manager'));
+        }
 
         $students = student::all();
         return view('Admin.student.students', compact('students'));

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\teacher;
 use App\Models\school;
+use App\Models\manager;
+use Session ;
 use App\Http\Requests\StoreteacherRequest;
 use App\Http\Requests\UpdateteacherRequest;
 use Illuminate\Http\Request;
@@ -17,6 +19,12 @@ class TeacherController extends Controller
      */
     public function index()
     {
+        if(Session::has('manager')){
+            $manager = manager::find(Session::get('manager'));
+            $school = school::find($manager->school_id);
+            $teachers = teacher::where('school_id',$school->id)->get();
+            return view('Admin.school.school_teachers',compact('teachers' , 'school' , 'manager'));
+        }
         $teachers = teacher::all();
         return view('Admin.teacher.teachers' , compact('teachers'));
     }

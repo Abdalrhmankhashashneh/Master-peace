@@ -11,15 +11,31 @@ use Session;
 
 class Login extends Controller
 {
-    public function index()
+    public function profile()
     {
-        return view('login');
+        if(Session::has('manager')){
+            $manager = manager::where('id', Session::get('manager'))->first();
+            return view('manager.index', compact('manager'));
+        }
+        elseif(Session::has('teacher')){
+            $teacher = teacher::where('id', Session::get('teacher'))->first();
+            return view('teacher.index', compact('teacher'));
+        }
+        elseif(Session::has('student')){
+            $student = student::where('id', Session::get('student'))->first();
+            return view('student.index', compact('student'));
+        }
+        else{
+            return redirect()->route('login');
+        }
     }
 
     public function login(Request $request)
     {
         $email = $request->email;
         $password = $request->password;
+
+
 
         $manager = manager::where('email', $email)->first();
         if($manager)
@@ -42,7 +58,9 @@ class Login extends Controller
             {
                 if($teacher->password == $password)
                 {
-                    dd($teacher);
+                    Session::put('teacher', $teacher->id);
+                    $teacher = teacher::find($teacher->id);
+                    return view('teacher.index' , compact('teacher'));
                 }
                 else
                 {
@@ -57,7 +75,9 @@ class Login extends Controller
                 {
                     if($student->password == $password)
                     {
-                        dd($student);
+                        Session::put('student', $student->id);
+                        $student = student::find($student->id);
+                        return view('student.index' , compact('student'));
                     }
                     else
                     {
@@ -78,8 +98,9 @@ class Login extends Controller
     public function register(){
         return view('register');
     }
-    public function Logout()
-    {
-        return view('index');
+    public function Logout(){
+        Session::flush();
+        return redirect('/Raqib/login');
     }
+
 }

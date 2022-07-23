@@ -8,9 +8,16 @@
 .g-0{
     display: flex;
     width: 100%;
-    min-height: 70vh;
+    min-height: 40vh;
     justify-content: center;
     align-items: center;
+
+}
+.sss{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh ;
 
 }
 form{
@@ -21,20 +28,28 @@ form{
     align-items: center;
 
 }
-img{
-    display: flex;
-    width: 100px;
-
+.img_c{
+display: flex;
+    width: 100%;
+    height:15vh;
     justify-content: center;
-    align-items: center;
-
+margin-bottom: 15px;
 }
 </style>
 @endsection
+@section('s')
+@php
+$s ="off"
+@endphp
+
+@endsection
 @section('content')
 
-<div class="bg-light rounded">
+<div class="bg-light rounded sss">
     <div class="row g-0">
+        <div class="img_c">
+            <img src="{{asset('raqib_logo.png')}}" alt="">
+        </div>
                         <form action="{{route('login')}}" method="POST">
                             @csrf
                     <div class="row g-3">
@@ -54,7 +69,7 @@ img{
                             </div>
                          </div>
 
-                         <div class="col-12">
+                         <div class="col-12 mb-2">
                             <button class="btn btn-primary w-100 py-3" type="submit">Login</button>
                         </div>
 
@@ -65,5 +80,5 @@ img{
 
     </div>
 </div>
-
+</div>
 @endsection

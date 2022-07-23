@@ -9,10 +9,11 @@ use App\Models\teacher;
 use App\Models\student;
 use App\Models\manager;
 use App\Models\classroom;
-
+use Session;
 
 class AdminController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +24,29 @@ class AdminController extends Controller
         return view('Admin.index');
     }
 
+    public function login()
+    {
+        return view('Admin.login');
+    }
+
+    public function login_v(Request $request)
+    {
+        $admin = admin::where('email', $request->email)->where('password', $request->password)->first();
+        if($admin){
+            Session::flush();
+            Session::put('admin', $admin);
+            return redirect()->route('admin.index');
+        }
+        else{
+            return redirect()->route('admin.login')->with('error', 'Invalid email or password');
+        }
+    }
+
+    public function logout()
+    {
+        Session::forget('admin');
+        return redirect()->route('admin.login');
+    }
 
 
 
