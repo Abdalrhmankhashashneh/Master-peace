@@ -377,6 +377,7 @@
                 </div>
             </div>
         </div>
-        <!-- Testimonial End -->
 
+        <!-- Testimonial End -->
+    </div>
         @endsection
