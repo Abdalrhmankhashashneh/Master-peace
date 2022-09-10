@@ -54,7 +54,8 @@ class home extends Controller
      */
     public function school()
     {
-        return view('classes');
+        $schools = School::all();
+        return view('classes' , compact('schools'));
     }
 
     /**

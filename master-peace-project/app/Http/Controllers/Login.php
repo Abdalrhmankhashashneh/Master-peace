@@ -56,6 +56,7 @@ class Login extends Controller
             $teacher = teacher::where('email', $email)->first();
             if($teacher)
             {
+
                 if($teacher->password == $password)
                 {
                     Session::put('teacher', $teacher->id);

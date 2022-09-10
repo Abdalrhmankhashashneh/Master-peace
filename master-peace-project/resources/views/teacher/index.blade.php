@@ -5,17 +5,24 @@
 @endsection
 
 @section('name')
-{{$teacher->name }}
+    {{ $teacher->name }}
 @endsection
 
 @section('email')
-{{$teacher->email }}
+    {{ $teacher->email }}
 @endsection
-
+@section('links')
+    <li class="active">
+        <a href="{{ route('students.index') }}">
+            <i class="material-icons">people</i>
+            <span>Students </span>
+        </a>
+    </li>
+@endsection
 @section('con')
-hello teacher {{$teacher->name }} <br>
-<form action="{{route('logout')}}" method="POST">
-    @csrf
-    <input type="submit" value="logout">
-</form>
+    hello teacher {{ $teacher->name }} <br>
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <input type="submit" value="logout">
+    </form>
 @endsection
