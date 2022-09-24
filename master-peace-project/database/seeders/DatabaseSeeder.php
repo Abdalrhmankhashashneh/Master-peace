@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         school::create([
             'name' => 'King acadmy',
             'description' => 'Our students will learn to be independent, creative and responsible thinkers within an ethical community that encourages young men and women of diverse backgrounds and beliefs to excel, to cherish one another and to prepare for leadership.',
+            'limits' => '5600',
             'status' => "1" ,
         ]);
 

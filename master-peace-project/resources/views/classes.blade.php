@@ -42,7 +42,7 @@
                                     <div class="d-flex align-items-center">
 
                                         <div class="ms-3">
-                                            <h6 class="text-primary mb-1">{{ $school->des }}</h6>
+                                            <h6 class="text-primary mb-1">{{ $school->description }}</h6>
 
                                         </div>
                                     </div>
