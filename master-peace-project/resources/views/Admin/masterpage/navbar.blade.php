@@ -310,20 +310,22 @@
                             <li role="seperator" class="divider"></li>
                             @if (Session::has('manager'))
                                 <li><i class="material-icons">input</i>
-                                    <form action="{{ route('logout') }}" method="POST">
+                                    <form action="{{ route('logout') }}" method="GET">
                                         @csrf
-                                        <input type="submit" value="Sign Out">
+                                        <input style="color: black; width: 100%; border:none;" type="submit"
+                                            value="Sign Out">
                                     </form>
                                 </li>
                             @elseif(Session::has('admin'))
                                 <li><i class="material-icons">input</i>
-                                    <form action="{{ route('logout') }}" method="POST">
+                                    <form action="{{ route('logout') }}" method="GET">
                                         @csrf
                                         <input type="submit" value="Sign Out">
                                     </form>
                                 </li>
                             @elseif(Session::has('teacher'))
-                                <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                                <li><a class="bg-dark" href="javascript:void(0);"><i
+                                            class="material-icons ">input</i>Sign Out</a></li>
                             @endif
                         </ul>
                     </div>
@@ -366,12 +368,7 @@
                             </a>
                         </li>
                     @endif
-                    <li class="active">
-                        <a href="{{ route('students.index') }}">
-                            <i class="material-icons">people</i>
-                            <span>Students </span>
-                        </a>
-                    </li>
+
                     @yield('links')
                 </ul>
             </div>

@@ -5,28 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use App\Http\Requests\StorecontactRequest;
 use App\Http\Requests\UpdatecontactRequest;
+use Validator;
 
 class ContactController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,51 +18,28 @@ class ContactController extends Controller
      */
     public function store(StorecontactRequest $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required||email||unique:contacts',
+            'description' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $contact = new contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->description = $request->description;
+        $contact->status = 1;
+        $contact->save();
+        return redirect()->back()->with('success', 'Your message has been sent successfully we will contact you as soon as possible');
+
+    }
+    public function change($id){
+        $contact = contact::find($id);
+        $contact->status = 0;
+        $contact->save();
+        return redirect()->back()->with('success', 'status changed successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\contact  $contact
-     * @return \Illuminate\Http\Response
-     */
-    public function show(contact $contact)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\contact  $contact
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(contact $contact)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatecontactRequest  $request
-     * @param  \App\Models\contact  $contact
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatecontactRequest $request, contact $contact)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\contact  $contact
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(contact $contact)
-    {
-        //
-    }
 }

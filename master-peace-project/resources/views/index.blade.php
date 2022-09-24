@@ -147,7 +147,7 @@
                                 Add to your school environment a set of wonderful tools and additional services that we will
                                 help you provide
                             </p>
-                            <a class="btn btn-primary py-3 px-5" href="">Get Started Now<i
+                            <a class="btn btn-primary py-3 px-5" href="{{ route('school') }}">Get Started Now<i
                                     class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>

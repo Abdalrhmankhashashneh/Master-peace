@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <!-- Page Header End -->
-    <div class="container-xxl py-5 page-header position-relative mb-5">
+    <div class="container-fluid py-5 page-header position-relative mb-5">
         <div class="container py-5">
             <h1 class="display-2 text-white animated slideInDown mb-4">Schools</h1>
 
@@ -14,8 +14,13 @@
 
 
     <!-- Classes Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
+    <div class="container-fluid py-5">
+        <div class="container-fluid">
+            @if (Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h1 class="mb-3">Schools</h1>
                 <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod
@@ -81,32 +86,35 @@
                 <div class="row g-0">
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                         <div class="h-100 d-flex flex-column justify-content-center p-5">
+
                             <h1 class="mb-4">Join our comminty now </h1>
-                            <form>
+                            <form method="POST" action="{{ route('contact') }}">
+                                @csrf
                                 <div class="row g-3">
                                     <div class="col-sm-12">
                                         <div class="form-floating">
                                             <input type="text" class="form-control border-0" id="gname"
-                                                placeholder="Gurdian Name">
+                                                placeholder="Gurdian Name" name="name" required>
                                             <label for="gname">Name</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-floating">
                                             <input type="email" class="form-control border-0" id="gmail"
-                                                placeholder="Gurdian Email">
+                                                placeholder="Gurdian Email" name="email" required email>
                                             <label for="gmail"> Email</label>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="message" style="height: 100px"
+                                                name="description" required maxlength="150" minlength="10"></textarea>
                                             <label for="message">Message</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send</button>
                                     </div>
                                 </div>
                             </form>
@@ -178,5 +186,4 @@
     </div>
 
     <!-- Testimonial End -->
-    </div>
 @endsection

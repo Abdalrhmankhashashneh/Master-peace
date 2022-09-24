@@ -7,6 +7,9 @@ use App\Models\school;
 use App\Models\teacher;
 use App\Models\student;
 use App\Models\manager;
+use App\Models\comments;
+use App\Models\activities;
+use App\Models\lessones;
 use Session;
 
 class Login extends Controller
@@ -23,7 +26,22 @@ class Login extends Controller
         }
         elseif(Session::has('student')){
             $student = student::where('id', Session::get('student'))->first();
-            return view('student.index', compact('student'));
+            $school = school::find($student->school_id);
+            $comments = comments::where('student_id', $student->id)->get();
+            $activities = activities::where('student_id', $student->id)->get();
+            $classrooms = lessones::join('classrooms' , 'lessones.CR_id' , '=' , 'classrooms.id')->where('student_id', $student->id)->get()->toArray();
+            $courses = lessones::join('courses' , 'lessones.Course_id' , '=' , 'courses.id')->where('student_id', $student->id)->get()->toArray();
+            $teachers = lessones::join('teachers' , 'lessones.Teacher_id' , '=' , 'teachers.id')->where('student_id', $student->id)->get()->toArray();
+            $counter = lessones::join('teachers' , 'lessones.Teacher_id' , '=' , 'teachers.id')->where('student_id', $student->id)->get()->count();
+            $school = school::find($student->school_id);
+            $info = [
+                'classrooms' => $classrooms,
+                'courses' => $courses,
+                'teachers' => $teachers,
+                'counter' => $counter,
+            ];
+            return view('student.index' , compact('student' , 'school' , 'comments' , 'activities' , 'info'));
+
         }
         else{
             return redirect()->route('login');
@@ -32,6 +50,7 @@ class Login extends Controller
 
     public function login(Request $request)
     {
+
         $email = $request->email;
         $password = $request->password;
 
@@ -77,8 +96,22 @@ class Login extends Controller
                     if($student->password == $password)
                     {
                         Session::put('student', $student->id);
-                        $student = student::find($student->id);
-                        return view('student.index' , compact('student'));
+                        $school = school::find($student->school_id);
+                        $comments = comments::where('student_id', $student->id)->get();
+                        $activities = activities::where('student_id', $student->id)->get();
+
+                        $classrooms = lessones::join('classrooms' , 'lessones.CR_id' , '=' , 'classrooms.id')->where('student_id', $student->id)->get()->toArray();
+                        $courses = lessones::join('courses' , 'lessones.Course_id' , '=' , 'courses.id')->where('student_id', $student->id)->get()->toArray();
+                        $teachers = lessones::join('teachers' , 'lessones.Teacher_id' , '=' , 'teachers.id')->where('student_id', $student->id)->get()->toArray();
+                        $counter = lessones::join('teachers' , 'lessones.Teacher_id' , '=' , 'teachers.id')->where('student_id', $student->id)->get()->count();
+                        $school = school::find($student->school_id);
+                        $info = [
+                            'classrooms' => $classrooms,
+                            'courses' => $courses,
+                            'teachers' => $teachers,
+                            'counter' => $counter,
+                        ];
+                        return view('student.index' , compact('student' , 'school' , 'comments' , 'activities' , 'info'));
                     }
                     else
                     {

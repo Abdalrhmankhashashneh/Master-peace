@@ -7,6 +7,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\home;
 use App\Http\Controllers\Login;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -78,12 +79,13 @@ Route::get('/', function () {
 Route::resource('raqib', home::class);
 
 Route::get('Raqib/about', [home::class , 'about'])->name('about');
-Route::get('Raqib/contact', [home::class , 'contact'])->name('contact');
+Route::get('Raqib/contact', [home::class , 'contact'])->name('contactview');
 Route::get('Raqib/scchool', [home::class , 'school'])->name('school');
 
 Route::get('Raqib/login', [home::class , 'login'])->name('login')->middleware('islogin');
 Route::post('Raqib/login', [Login::class , 'login'])->name('login')->middleware('islogin');
-Route::post('Raqib/logout', [Login::class , 'logout'])->name('logout')->middleware('islogin');
+Route::get('Raqib/logout', [Login::class , 'logout'])->name('logout')->middleware('islogin');
 Route::get('Raqib/profile', [Login::class , 'profile'])->name('profile')->middleware('islogin');
-
+Route::post('contact/s' , [ContactController::class , 'store'])->name('contact');
+Route::get('contact/{id}' , [ContactController::class , 'change'])->name('contact_change');
 

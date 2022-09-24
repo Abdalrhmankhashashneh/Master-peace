@@ -9,6 +9,7 @@ use App\Models\teacher;
 use App\Models\student;
 use App\Models\manager;
 use App\Models\classroom;
+use App\Models\contact;
 use Session;
 
 class AdminController extends Controller
@@ -21,7 +22,14 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('Admin.index');
+        $schools = school::all()->count();
+        $teachers = teacher::all()->count();
+        $students = student::all()->count();
+        $managers = manager::all()->count();
+        $contacts = contact::orderBy('id', 'desc')->get();
+        $classrooms = classroom::all()->count();
+        return view('Admin.index' , compact('schools' , 'teachers' , 'students' , 'managers' , 'classrooms' , 'contacts'));
+
     }
 
     public function login()
@@ -177,65 +185,4 @@ class AdminController extends Controller
 
 
 
-
-
-
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, admin $admin)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(admin $admin)
-    {
-
-    }
 }
